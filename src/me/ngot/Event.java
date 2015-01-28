@@ -85,7 +85,7 @@ public class Event {
 				ValObserver observer = it.next();
 				if (observer.getCallback() == callback) {
 					v.deleteObserver(observer);
-					observers.remove(observer);
+					it.remove();
 				}
 			}
 		}
@@ -100,7 +100,8 @@ public class Event {
 			Entry<String, CallbackFunction> entry = (Entry<String, CallbackFunction>) it
 					.next();
 			String key = (String) entry.getKey();
-			events.remove(key);
+			CallbackFunction callback = (CallbackFunction) entry.getValue();
+			Event.off(key, callback);
 		}
 	}
 
