@@ -1,0 +1,8 @@
+*.class
+
+*.war
+*.ear
+.project
+.settings
+.idea
+build
