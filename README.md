@@ -8,5 +8,8 @@ Java语言实现的trigger on观察者模式
 - Clone or download this repo
 - Run `ant` to get the unit tests going
 
+##Author
+- [ngot](http://www.weibo.com/u/1751144103)
+
 ## License
 Licensed under the MIT license.
