@@ -36,7 +36,12 @@ public class Event {
 	public static void on(String k, CallbackFunction callback) {
 		Val v = events.get(k);
 		if (v == null) {
-			events.put(k, new Val(new ValObserver(callback)));
+			synchronized (Event.class) {
+				if (events.get(k) == null) {
+					events.put(k, new Val(new ValObserver(callback)));
+				}
+			}
+
 		} else {
 			v.addObserver(new ValObserver(callback));
 		}
