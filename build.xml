@@ -2,6 +2,7 @@
 <project name="java-junit-template-project" default="test"
 	basedir=".">
 	<property name="main.build.dir" value="build/main" />
+	<property name="out.dir" value="out" />
 	<property name="main.src.dir" value="src" />
 	<property name="test.build.dir" value="build/test" />
 	<property name="test.src.dir" value="test" />
@@ -17,7 +18,7 @@
 
 	<target name="test" depends="run, clean" />
 
-	<target name="compile">
+	<target name="compile" depends="clean">
 		<mkdir dir="${main.build.dir}" />
 		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}"
 			includeantruntime="false">
@@ -53,7 +54,19 @@
 		<delete>
 			<fileset dir="${basedir}" includes="**/*.class" />
 		</delete>
-		<echo message="clean done" />
+        <delete includeemptydirs="true" verbose="true" failonerror="false">
+            <fileset dir="${out.dir}">
+            </fileset>
+        </delete>
+        <echo message="clean done" />
+	</target>
+
+	<target name="jar" depends="compile">
+        <mkdir dir="${out.dir}" />
+		<jar destfile="${out.dir}/event.jar" basedir="${main.build.dir}">
+			<manifest>
+			</manifest>
+		</jar>
 	</target>
 
 </project>
