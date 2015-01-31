@@ -8,23 +8,17 @@ import java.util.Map.Entry;
 class Function implements CallbackFunction {
 
 	private CallbackFunction callback;
-	private HashMap<String, Val> events;
 	private String k;
 
-	public Function() {
-	}
-
-	public Function(CallbackFunction callback, HashMap<String, Val> events,
-			String k) {
+	public Function(String k, CallbackFunction callback) {
 		this.callback = callback;
-		this.events = events;
 		this.k = k;
 	}
 
 	@Override
 	public void call(Object o) {
-		this.callback.call(o);
-		this.events.remove(this.k);
+		callback.call(o);
+		Event.off(k);
 	}
 
 }
@@ -65,8 +59,7 @@ public class Event {
 		if (v != null) {
 			events.remove(k);
 		}
-		events.put(k, new Val(
-				new ValObserver(new Function(callback, events, k))));
+		events.put(k, new Val(new ValObserver(new Function(k, callback))));
 	}
 
 	public static void once(HashMap<String, CallbackFunction> map) {
